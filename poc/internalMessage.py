@@ -14,7 +14,7 @@ print(len(a) - len(a.lstrip()))
 print(len(b) - len(b.lstrip()))
 
 print('-------------------------------')
-f = open('file.txt', "r")
+f = open('logs\WCG100140020.txt', "r")
 lista = []
 for x in f:
     stripped = x.lstrip()
@@ -22,8 +22,7 @@ for x in f:
     key = stripped.split(" ")[0]
     # Ha az első szó betű vagy szám
     if key.isalnum():
-        lista.append(key)
-        lista.append(param_depth)
+        lista.append((key,param_depth))
 
 print(lista)
 
