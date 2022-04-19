@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Tuple, NoReturn
 
+
 # Goldschmidt falra mászna az OOP-tlanságtól, kijavíthatjuk majd
 @dataclass
 class Message:
@@ -20,4 +21,3 @@ class Message:
         key: Tuple[str, int] - parameter key to be appended
         """
         self.parameter_keys.append(key)
-

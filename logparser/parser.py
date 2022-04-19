@@ -1,11 +1,13 @@
 import re
-from typing import Dict, NoReturn, Optional
+from typing import Dict, Optional
 from logparser.message import *
+
 
 class Parser:
     """ Parser class
     Parses a file with parse method, and stores specific messages.
     """
+
     def __init__(self) -> None:
         self.messages: List[Message] = []
 
@@ -13,7 +15,6 @@ class Parser:
         """ Prints messages to std_out """
         for i in self.messages:
             print(i.__repr__())
-
 
     def check_portevent(self, line: str) -> Optional[re.Match]:
         """ Checks if line is a valid PORTEVENT log
@@ -29,9 +30,8 @@ class Parser:
                                  "Receive": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
                                             r"(\w*) ([A-Z]+) .* (Receive) .* from ([\w\(\)]+): ([@\w.]+)"
                                  }
-        is_match: bool = False
         for k in regex:
-            match_obj: re.Match = re.match(regex[k], line)
+            match_obj: re.Match = re.search(regex[k], line)
             if match_obj is not None:
                 return match_obj
         return None
@@ -81,13 +81,14 @@ class Parser:
                 if re.search(r"^\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}", line) is not None:
                     if "PORTEVENT" in line:
                         if line[-2] == '{':
-                            if self.check_portevent(line):
+                            match_obj = self.check_portevent(line)
+                            if match_obj:
                                 self.messages.append(Message(id, timestamp=match_obj.group(1),
-                                                    sending_component=match_obj.group(2),
-                                                    event_type=match_obj.group(3),
-                                                    operation_type=match_obj.group(4),
-                                                    receiving_component=match_obj.group(5),
-                                                    message_type=match_obj.group(6)))
+                                                             sending_component=match_obj.group(2),
+                                                             event_type=match_obj.group(3),
+                                                             operation_type=match_obj.group(4),
+                                                             receiving_component=match_obj.group(5),
+                                                             message_type=match_obj.group(6)))
                                 message_scope = True
                                 id += 1
                         # nem tudom hogy kell-e
