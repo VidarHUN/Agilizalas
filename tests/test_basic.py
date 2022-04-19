@@ -1,6 +1,6 @@
 import unittest
 
-from parser.main import sum
+from logparser.main import sum
 
 
 class TestSum(unittest.TestCase):
