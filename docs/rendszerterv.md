@@ -1,6 +1,6 @@
 # Rendszerterv
 ## Osztálydiagramm
-![uml class diagramm](uml_class.png)
+![uml class diagramm](/docs/uml_class.PNG)
 ### Parser
 #### Áttekintés
 Az osztály alapvetően a log file parseolásáért felelős, valamint Message  objektumok létrehozásáért.
@@ -67,6 +67,6 @@ A megjelenített kép (újra)rajzolása
 2. +show()
 Az aktuálisan megjelenített kép mutatása a felhasználó felé
 ## Szekvencia diagramm
-![uml sequence diagramm](uml_sequence.png)
+![uml sequence diagramm](/docs/uml_sequence.PNG)
 ### Általános folyamat
 Az alábbi diagramm ábrázolja az általános folyamatát a parseolás valamint megjelenítés működését illetően.
