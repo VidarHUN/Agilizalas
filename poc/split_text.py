@@ -5,7 +5,7 @@ log_text = f.read()
 
 f.close()
 
-all_messages = re.split("\d{4}\/[a-zA-Z]{3}\/\d{2} \d{2}:\d{2}:\d{2}.\d{6}", log_text)
+all_messages = re.split(r"\d{4}\/[a-zA-Z]{3}\/\d{2} \d{2}:\d{2}:\d{2}.\d{6}", log_text)
 
 print(all_messages[0])
 
@@ -17,4 +17,3 @@ for item in all_messages:
 
 print(len(sip_messages))
 print(sip_messages[0])
-

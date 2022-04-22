@@ -1,6 +1,6 @@
 import unittest
 
-from parser.main import sum
+from logparser.main import sum
 
 
 class TestSum(unittest.TestCase):
@@ -11,6 +11,7 @@ class TestSum(unittest.TestCase):
         data = [1, 2, 3]
         result = sum(data)
         self.assertEqual(result, 6)
+
 
 if __name__ == '__main__':
     unittest.main()

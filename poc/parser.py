@@ -1,12 +1,12 @@
 import re
 
- # barna regex kódja
-f = open('logs\WCG100140020.txt', 'r')
+# barna regex kódja
+f = open('logs/WCG100140020.txt', 'r')
 log_text = f.read()
 
 f.close()
 
-all_messages = re.split("\d{4}\/[a-zA-Z]{3}\/\d{2} \d{2}:\d{2}:\d{2}.\d{6}", log_text)
+all_messages = re.split(r"\d{4}\/[a-zA-Z]{3}\/\d{2} \d{2}:\d{2}:\d{2}.\d{6}", log_text)
 
 print(all_messages[0])
 
@@ -39,33 +39,33 @@ operation = sip_messages[0].split()[3]
 
 
 # internal message kulcsokat szedi ki és a mélységüket. Most még csak az első üzeneten
-list = []
+keys_list = []
 for x in sip_messages[0].splitlines():
     stripped = x.lstrip()
     param_depth = int((len(x) - len(x.lstrip()))/4)
     key = stripped.split(" ")[0]
     # Ha az első szó betű vagy szám
     if key.isalnum():
-        list.append((key,param_depth))
+        keys_list.append((key, param_depth))
 
 mykey = []
 print("-------------------------")
-print(list)
+print(keys_list)
 print("-------------------------")
 
 # kulcs- mélység párosból "csinálna" egymásba ágyazott listát.
 # Lehet máshogy tárolva egyszerűbb lenne használni.
 y = -1
-for i in list:
-    if(i[1] == 1):
+for i in keys_list:
+    if i[1] == 1:
         y += 2
         mykey.append(i[0])
         mykey.append([])
-    if(i[1] == 2 or i[1] == 3):
+    if i[1] == 2 or i[1] == 3:
         mykey[y].append(i[0])
-    #print(mykey)
+    # print(mykey)
         
 
 # mykey = lista[1][0]
 print(mykey)
-print(list)
+print(keys_list)
