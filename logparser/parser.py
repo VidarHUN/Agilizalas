@@ -1,7 +1,7 @@
 import re
 from typing import Dict, Optional
-from logparser.message import *
-
+# from logparser.message import *
+from message import *
 
 class Parser:
     """ Parser class
@@ -61,9 +61,15 @@ class Parser:
         stripped: str = line.lstrip()
         param_depth: int = int((len(line) - len(line.lstrip())) / 4)
         key: str = stripped.split(" ")[0]
-        # Ha az első szó betű vagy szám
-        if key.isalnum():
-            return (key, param_depth)
+        value: str = ""
+        if '"' in stripped:
+            value = stripped.split('"')[1]
+        # Ha az első szó betű vagy szám, (vagy tartalmaz "_"karaktert)
+            if key.isalnum() or "_" in key:
+                return (key, value, param_depth)
+        else:
+            if key.isalnum() or "_" in key:
+                return (key, param_depth)
         return None
 
     def parse(self, file: str) -> NoReturn:
