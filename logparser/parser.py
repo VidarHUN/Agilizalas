@@ -69,7 +69,7 @@ class Parser:
                 return (key, value, param_depth)
         else:
             if key.isalnum() or "_" in key:
-                return (key, param_depth)
+                return (key, "", param_depth)
         return None
 
     def parse(self, file: str) -> NoReturn:
