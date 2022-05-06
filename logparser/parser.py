@@ -64,12 +64,12 @@ class Parser:
         value: str = ""
         if '"' in stripped:
             value = stripped.split('"')[1]
+        elif '{' not in stripped and '}' not in stripped:
+            value = stripped.split(':=')[1].rstrip(",").rstrip("\n")
+
         # Ha az első szó betű vagy szám, (vagy tartalmaz "_"karaktert)
-            if key.isalnum() or "_" in key:
-                return (key, value, param_depth)
-        else:
-            if key.isalnum() or "_" in key:
-                return (key, "", param_depth)
+        if key.isalnum() or "_" in key:
+            return (key, value, param_depth)
         return None
 
     def parse(self, file: str) -> NoReturn:
