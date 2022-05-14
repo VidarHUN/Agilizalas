@@ -64,7 +64,6 @@ for i in keys_list:
     if i[1] == 2 or i[1] == 3:
         mykey[y].append(i[0])
     # print(mykey)
-        
 
 # mykey = lista[1][0]
 print(mykey)
