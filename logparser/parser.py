@@ -29,7 +29,7 @@ class Parser:
         regex: Dict[str, str] = {"Sent": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
                                          r"(\w*) ([A-Z]+) .* (Sent) on .* to (\w+) ([@\w.]+)",
                                  "Receive": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
-                                            r"(\w*) ([A-Z]+) .* (Receive) .* from ([\w\(\)]+): ([@\w.]+)"
+                                            r"(\w*) ([A-Z]+) .* (Receive) .* from (\w+) .*: ([@\w.]+)"
                                  }
         for k in regex:
             match_obj: re.Match = re.search(regex[k], line)
@@ -66,6 +66,9 @@ class Parser:
         if key.isalnum():
             return (key, param_depth)
         return None
+
+    def get_messages(self):
+        return self.messages
 
     def parse(self, file: str) -> NoReturn:
         """ Parses the given file
@@ -111,14 +114,3 @@ class Parser:
                         param_tuple: Tuple[str, int] = self.get_param_keys(line)
                         if param_tuple is not None:
                             self.messages[-1].add_parameter_key(param_tuple)
-
-if __name__ == "__main__":
-    arg_parser = argparse.ArgumentParser(description='Process some integers.')
-    arg_parser.add_argument('--file', dest='file',
-                        help='path of the log files')
-
-    args = arg_parser.parse_args()
-
-    parser = Parser()
-    parser.parse(args.file)
-    parser.print()
