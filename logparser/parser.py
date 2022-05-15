@@ -2,6 +2,7 @@ import re
 from typing import Dict, Optional
 from logparser.message import *
 
+
 class Parser:
     """ Parser class
     Parses a file with parse method, and stores specific messages.
@@ -98,11 +99,11 @@ class Parser:
                                 match_obj = self.check_portevent(line)
                                 if match_obj:
                                     self.messages.append(Message(id, timestamp=match_obj.group(1),
-                                                                sending_component=match_obj.group(2),
-                                                                event_type=match_obj.group(3),
-                                                                operation_type=match_obj.group(4),
-                                                                receiving_component=match_obj.group(5),
-                                                                message_type=match_obj.group(6)))
+                                                                 sending_component=match_obj.group(2),
+                                                                 event_type=match_obj.group(3),
+                                                                 operation_type=match_obj.group(4),
+                                                                 receiving_component=match_obj.group(5),
+                                                                 message_type=match_obj.group(6)))
                                     message_scope = True
                                     id += 1
                             # nem tudom hogy kell-e
