@@ -12,7 +12,7 @@ class Message:
     operation_type: str = ""
     receiving_component: str = ""
     message_type: str = ""
-    parameter_keys: List[Tuple[str, int]] = field(default_factory=list)
+    parameter_keys: List[Tuple[str, str, int]] = field(default_factory=list)
     duration: int = 0
     obj_num: int = 0
 

@@ -1,8 +1,6 @@
 import re
-import argparse
 from typing import Dict, Optional
-# from logparser.message import *
-from message import *
+from logparser.message import *
 
 class Parser:
     """ Parser class
@@ -51,26 +49,31 @@ class Parser:
         match_obj: re.Match = re.search(regex, line)
         return match_obj
 
-    def get_param_keys(self, line) -> Optional[Tuple[str, int]]:
+    def get_param_keys(self, line) -> Optional[Tuple[str, str, int]]:
         """ Parses parameter keys from given log line
 
         Parameters:
         line: str - log line to be parsed
         Returns:
-        Optional[Tuple[str, int]] - returns the parameter key and depth if valid log line, None otherwise
+        Optional[Tuple[str, str, int]] - returns the parameter key and depth if valid log line, None otherwise
         """
         stripped: str = line.lstrip()
         param_depth: int = int((len(line) - len(line.lstrip())) / 4)
         key: str = stripped.split(" ")[0]
         value: str = ""
         if '"' in stripped:
-            value = stripped.split('"')[1]
+            value = stripped.split('"')[1].strip(' ').strip(',')
         elif '{' not in stripped and '}' not in stripped:
-            value = stripped.split(':=')[1].rstrip(",").rstrip("\n")
+            value = stripped.split(':=')[1].strip(",").strip("\n")
 
         # Ha az első szó betű vagy szám, (vagy tartalmaz "_"karaktert)
         if key.isalnum() or "_" in key:
-            return (key, value, param_depth)
+            if key in ['method', 'statusCode', 'reasonPhrase'] and '_' not in value:
+                if value[0] == " ":
+                    value = value[1:]
+                if value[-1] == ",":
+                    value = value[:-1]
+                return (key, value, param_depth)
         return None
 
     def get_messages(self):
@@ -90,20 +93,21 @@ class Parser:
             for line in f:
                 if re.search(r"^\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}", line) is not None:
                     if "PORTEVENT" in line:
-                        if line[-2] == '{':
-                            match_obj = self.check_portevent(line)
-                            if match_obj:
-                                self.messages.append(Message(id, timestamp=match_obj.group(1),
-                                                             sending_component=match_obj.group(2),
-                                                             event_type=match_obj.group(3),
-                                                             operation_type=match_obj.group(4),
-                                                             receiving_component=match_obj.group(5),
-                                                             message_type=match_obj.group(6)))
-                                message_scope = True
-                                id += 1
-                        # nem tudom hogy kell-e
-                        else:
-                            message_scope = False
+                        if 'sip' in line or "Sip" in line:
+                            if line[-2] == '{':
+                                match_obj = self.check_portevent(line)
+                                if match_obj:
+                                    self.messages.append(Message(id, timestamp=match_obj.group(1),
+                                                                sending_component=match_obj.group(2),
+                                                                event_type=match_obj.group(3),
+                                                                operation_type=match_obj.group(4),
+                                                                receiving_component=match_obj.group(5),
+                                                                message_type=match_obj.group(6)))
+                                    message_scope = True
+                                    id += 1
+                            # nem tudom hogy kell-e
+                            else:
+                                message_scope = False
                     elif "TIMEROP" in line:
                         message_scope = False
                         match_obj = self.check_timerop(line)
@@ -117,6 +121,6 @@ class Parser:
                         message_scope = False
                 else:
                     if message_scope:
-                        param_tuple: Tuple[str, int] = self.get_param_keys(line)
+                        param_tuple: Tuple[str, str, int] = self.get_param_keys(line)
                         if param_tuple is not None:
                             self.messages[-1].add_parameter_key(param_tuple)
