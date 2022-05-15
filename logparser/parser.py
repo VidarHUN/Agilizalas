@@ -1,4 +1,5 @@
 import re
+import argparse
 from typing import Dict, Optional
 # from logparser.message import *
 from message import *
@@ -28,7 +29,7 @@ class Parser:
         regex: Dict[str, str] = {"Sent": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
                                          r"(\w*) ([A-Z]+) .* (Sent) on .* to (\w+) ([@\w.]+)",
                                  "Receive": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
-                                            r"(\w*) ([A-Z]+) .* (Receive) .* from ([\w\(\)]+): ([@\w.]+)"
+                                            r"(\w*) ([A-Z]+) .* (Receive) .* from (\w+) .*: ([@\w.]+)"
                                  }
         for k in regex:
             match_obj: re.Match = re.search(regex[k], line)
@@ -71,6 +72,9 @@ class Parser:
         if key.isalnum() or "_" in key:
             return (key, value, param_depth)
         return None
+
+    def get_messages(self):
+        return self.messages
 
     def parse(self, file: str) -> NoReturn:
         """ Parses the given file
