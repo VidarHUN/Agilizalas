@@ -3,24 +3,8 @@ import argparse
 from logparser.parser import Parser
 import time
 
-'''
-class Message:
-    def __init__(self, id, timestamp, sending_component, event_type, operation_type, receiving_component, message_type,
-                 parameter_keys, duration):
-        self.id = id
-        self.timestamp = timestamp
-        self.sending_component = sending_component
-        self.event_type = event_type
-        self.operation_type = operation_type
-        self.receiving_component = receiving_component
-        self.message_type = message_type
-        self.parameter_keys = parameter_keys
-        self.duration = duration
-        self.obj_num = 0
-'''
 
 def generate_python(messages, filename):
-
     obj_dict = {}
 
     with open('generated.py', 'w') as py:
@@ -83,7 +67,7 @@ def run_message(filename, message):
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser(description='Process some integers.')
     arg_parser.add_argument('--file', dest='file',
-                        help='path of the log files')
+                            help='path of the log files')
 
     args = arg_parser.parse_args()
 
@@ -93,4 +77,3 @@ if __name__ == '__main__':
 
     filename = f"Communication{time.time()}"
     run_message(filename, parser.get_messages())
-

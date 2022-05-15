@@ -114,4 +114,3 @@ class Parser:
                         param_tuple: Tuple[str, int] = self.get_param_keys(line)
                         if param_tuple is not None:
                             self.messages[-1].add_parameter_key(param_tuple)
-                            
