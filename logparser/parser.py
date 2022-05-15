@@ -1,4 +1,5 @@
 import re
+import argparse
 from typing import Dict, Optional
 from logparser.message import *
 
@@ -110,3 +111,14 @@ class Parser:
                         param_tuple: Tuple[str, int] = self.get_param_keys(line)
                         if param_tuple is not None:
                             self.messages[-1].add_parameter_key(param_tuple)
+
+if __name__ == "__main__":
+    arg_parser = argparse.ArgumentParser(description='Process some integers.')
+    arg_parser.add_argument('--file', dest='file',
+                        help='path of the log files')
+
+    args = arg_parser.parse_args()
+
+    parser = Parser()
+    parser.parse(args.file)
+    parser.print()
