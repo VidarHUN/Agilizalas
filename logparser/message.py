@@ -14,6 +14,7 @@ class Message:
     message_type: str = ""
     parameter_keys: List[Tuple[str, int]] = field(default_factory=list)
     duration: int = 0
+    obj_num: int = 0
 
     def add_parameter_key(self, key: Tuple[str, int]) -> NoReturn:
         """ Appends a parameter key to the parameter key list in a message
