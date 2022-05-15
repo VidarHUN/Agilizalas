@@ -1,6 +1,7 @@
 import os
 import argparse
 from logparser.parser import Parser
+import time
 
 '''
 class Message:
@@ -90,6 +91,6 @@ if __name__ == '__main__':
     parser.parse(args.file)
     parser.print()
 
-    filename = "Communication"
+    filename = f"Communication{time.time()}"
     run_message(filename, parser.get_messages())
 
