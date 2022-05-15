@@ -1,7 +1,7 @@
 import re
 import argparse
 from typing import Dict, Optional
-from message import *
+from logparser.message import *
 
 
 class Parser:
