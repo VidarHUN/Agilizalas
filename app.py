@@ -23,11 +23,29 @@ def generate_python(messages, filename):
         py.write("\n")
 
         for om in messages:
-            py.write(f"\twith obj{om.obj_num}:\n")
+            params_length = len(om.parameter_keys)
+            sip_msg = ""
+            phrase = ""
+            code = ""
+            for p in om.parameter_keys:
+                if params_length == 1 and p[0] == 'method':
+                    sip_msg = p[1]
+                elif p[1].strip().isnumeric() and p[0] == 'statusCode':
+                    code = p[1]
+                elif p[0] == 'reasonPhrase':
+                    phrase = p[1]
+
+            if params_length > 1:
+                sip_msg = phrase.strip() + "_" + code.strip()
+
             if om.receiving_component == "":
-                py.write(f"\t\tobj{om.obj_num}.{om.event_type}()\n")
-            else:
-                py.write(f"\t\tobj{obj_dict[om.receiving_component]}.{om.event_type}()\n")
+                py.write(f"\twith obj{om.obj_num}:\n")
+                py.write(f"\t\tobj{om.obj_num}.{om.event_type}('{om.operation_type}', {om.duration})\n")
+            elif len(sip_msg) > 0:
+                py.write(f"\twith obj{om.obj_num}:\n")
+                py.write(f"\t\tobj{obj_dict[om.receiving_component]}.{sip_msg}()\n")
+            # else:
+            #     py.write(f"\t\tobj{obj_dict[om.receiving_component]}.{om.event_type}()\n")
 
         py.write("\n\n\n")
         py.write("def generate():\n")
@@ -73,7 +91,7 @@ if __name__ == '__main__':
 
     parser = Parser()
     parser.parse(args.file)
-    parser.print()
+    # parser.print()
 
     filename = f"Communication{time.time()}"
     run_message(filename, parser.get_messages())
