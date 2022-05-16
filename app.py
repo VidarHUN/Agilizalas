@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
     parser = Parser()
     parser.parse(args.file)
-    #parser.print()
+    # parser.print()
 
     filename = f"Communication{time.time()}"
     run_message(filename, parser.get_messages())

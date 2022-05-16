@@ -1,5 +1,5 @@
 import re
-from typing import Dict, Optional
+from typing import Optional
 from logparser.message import *
 
 
@@ -26,10 +26,9 @@ class Parser:
         Optional[re.Match] - returns the match object if valid, None otherwise
         """
         regex = {"Sent": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
-                                         r"(\w*) ([A-Z]+) .* (Sent) on .* to (\w+) ([@\w.]+)",
-                                 "Receive": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
-                                            r"(\w*) ([A-Z]+) .* (Receive) .* from (\w+).*: ([@\w.]+)"
-                                 }
+                 r"(\w*) ([A-Z]+) .* (Sent) on .* to (\w+) ([@\w.]+)",
+                 "Receive": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
+                 r"(\w*) ([A-Z]+) .* (Receive) .* from (\w+).*: ([@\w.]+)"}
         for k in regex:
             match_obj: re.Match = re.search(regex[k], line)
             if match_obj is not None:
@@ -46,7 +45,7 @@ class Parser:
         Optional[re.Match] - returns the match object if valid, None otherwise
         """
         regex = r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) (\w*) ([A-Z]+) .* " \
-                     r"(Start timer|Timeout|Stop timer) (\w+): ([\d\.]+)"
+                r"(Start timer|Timeout|Stop timer) (\w+): ([\d\.]+)"
         match_obj = re.search(regex, line)
         return match_obj
 
@@ -69,7 +68,7 @@ class Parser:
 
         # Ha az első szó betű vagy szám, (vagy tartalmaz "_"karaktert)
         if key.isalnum() or "_" in key:
-            #print(f"{key} {value}")
+            # print(f"{key} {value}")
             if key in ['method', 'statusCode', 'reasonPhrase'] and '_' not in value:
                 if value[0] == " ":
                     value = value[1:]
