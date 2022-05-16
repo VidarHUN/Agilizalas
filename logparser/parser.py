@@ -25,10 +25,10 @@ class Parser:
         Return:
         Optional[re.Match] - returns the match object if valid, None otherwise
         """
-        regex: Dict[str, str] = {"Sent": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
+        regex = {"Sent": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
                                          r"(\w*) ([A-Z]+) .* (Sent) on .* to (\w+) ([@\w.]+)",
                                  "Receive": r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) "
-                                            r"(\w*) ([A-Z]+) .* (Receive) .* from (\w+) .*: ([@\w.]+)"
+                                            r"(\w*) ([A-Z]+) .* (Receive) .* from (\w+).*: ([@\w.]+)"
                                  }
         for k in regex:
             match_obj: re.Match = re.search(regex[k], line)
@@ -36,7 +36,7 @@ class Parser:
                 return match_obj
         return None
 
-    def check_timerop(self, line) -> Optional[re.Match]:
+    def check_timerop(self, line: str) -> Optional[re.Match]:
         """ Checks if line is a valid TIMEROP log
         TIMEROP logs may only be START TIMER, TIMEOUT or STOP TIMER
 
@@ -45,12 +45,12 @@ class Parser:
         Return:
         Optional[re.Match] - returns the match object if valid, None otherwise
         """
-        regex: str = r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) (\w*) ([A-Z]+) .* " \
+        regex = r"(\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}) (\w*) ([A-Z]+) .* " \
                      r"(Start timer|Timeout|Stop timer) (\w+): ([\d\.]+)"
-        match_obj: re.Match = re.search(regex, line)
+        match_obj = re.search(regex, line)
         return match_obj
 
-    def get_param_keys(self, line) -> Optional[Tuple[str, str, int]]:
+    def get_sip_param_keys(self, line) -> Optional[Tuple[str, str, int]]:
         """ Parses parameter keys from given log line
 
         Parameters:
@@ -58,10 +58,10 @@ class Parser:
         Returns:
         Optional[Tuple[str, str, int]] - returns the parameter key and depth if valid log line, None otherwise
         """
-        stripped: str = line.lstrip()
-        param_depth: int = int((len(line) - len(line.lstrip())) / 4)
-        key: str = stripped.split(" ")[0]
-        value: str = ""
+        stripped = line.lstrip()
+        param_depth = int((len(line) - len(line.lstrip())) / 4)
+        key = stripped.split(" ")[0]
+        value = ""
         if '"' in stripped:
             value = stripped.split('"')[1].strip(' ').strip(',')
         elif '{' not in stripped and '}' not in stripped:
@@ -69,6 +69,7 @@ class Parser:
 
         # Ha az első szó betű vagy szám, (vagy tartalmaz "_"karaktert)
         if key.isalnum() or "_" in key:
+            #print(f"{key} {value}")
             if key in ['method', 'statusCode', 'reasonPhrase'] and '_' not in value:
                 if value[0] == " ":
                     value = value[1:]
@@ -77,7 +78,13 @@ class Parser:
                 return (key, value, param_depth)
         return None
 
-    def get_messages(self):
+    def get_messages(self) -> List[Message]:
+        """ Returns the messages
+        Getter method for internal messages
+
+        Returns:
+        List[Message] - internal messages
+        """
         return self.messages
 
     def parse(self, file: str) -> NoReturn:
@@ -88,8 +95,8 @@ class Parser:
         Parameters:
         file: str - file path
         """
-        message_scope: bool = False
-        id: int = 0
+        message_scope = False
+        id = 0
         with open(file, "r") as f:
             for line in f:
                 if re.search(r"^\d{4}.[a-zA-Z]{3}.\d{2} \d{2}:\d{2}:\d{2}.\d{6}", line) is not None:
@@ -122,6 +129,6 @@ class Parser:
                         message_scope = False
                 else:
                     if message_scope:
-                        param_tuple: Tuple[str, str, int] = self.get_param_keys(line)
+                        param_tuple = self.get_sip_param_keys(line)
                         if param_tuple is not None:
                             self.messages[-1].add_parameter_key(param_tuple)

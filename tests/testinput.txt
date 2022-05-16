@@ -1,0 +1,252 @@
+2014/Oct/24 18:34:29.390320 mtc PORTEVENT SipClientLayerComponent.ttcn:202(function:sendInternalMessage) Sent on sipInternalPort[0] to 849 @variables.internalPortMessageWithAspsSip : {
+    internalMessage := {
+        description := "COMMAND_SIP_SEND_SIP_MESSAGE",
+        parameters := {
+            {
+                parameterName := "STEP_NUMBER",
+                parameterValue := "2"
+            },
+            {
+                parameterName := "SUBSCRIBER",
+                parameterValue := "11"
+            }
+        }
+    },
+    aspsSip := {
+        {
+            aspResponse := {
+                addr := {
+                    remote_host := "142.133.142.3",
+                    remote_port := 5060,
+                    local_host := "142.133.150.169",
+                    local_port := 26720,
+                    protocol := TCP_E (1)
+                },
+                response := {
+                    statusLine := {
+                        sipVersion := "SIP/2.0",
+                        statusCode := 100,
+                        reasonPhrase := "Trying"
+                    },
+                    msgHeader := {
+                        accept := omit,
+                        accept_contact := omit,
+                        acceptEncoding := omit,
+                        acceptLanguage := omit,
+                        acceptResourcePriority := omit,
+                        alertInfo := omit,
+                        alert_mode := omit,
+                        allow := omit,
+                        allow_events := omit,
+                        answer_mode := omit,
+                        authenticationInfo := omit,
+                        authorization := omit,
+                        callId := {
+                            fieldName := CALL_ID_E (12),
+                            callid := "142.133.142.3_6_1805558430567465450"
+                        },
+                        callInfo := omit,
+                        contact := omit,
+                        contentDisposition := omit,
+                        contentEncoding := omit,
+                        contentLanguage := omit,
+                        contentLength := {
+                            fieldName := CONTENT_LENGTH_E (18),
+                            len := 0
+                        },
+                        contentType := omit,
+                        cSeq := {
+                            fieldName := CSEQ_E (20),
+                            seqNumber := 1,
+                            method := "INVITE"
+                        },
+                        date := omit,
+                        diversion := omit,
+                        errorInfo := omit,
+                        event := omit,
+                        expires := omit,
+                        feature_caps := omit,
+                        fromField := {
+                            fieldName := FROM_E (27),
+                            addressField := {
+                                nameAddr := {
+                                    displayName := omit,
+                                    addrSpec := {
+                                        scheme := "sip",
+                                        userInfo := {
+                                            userOrTelephoneSubscriber := "10014002006",
+                                            password := omit
+                                        },
+                                        hostPort := {
+                                            host := "ericsson.se",
+                                            portField := omit
+                                        },
+                                        urlParameters := omit,
+                                        headers := omit
+                                    }
+                                }
+                            },
+                            fromParams := {
+                                {
+                                    id := "tag",
+                                    paramValue := "i1o4954c-7"
+                                }
+                            }
+                        },
+                        geolocation := omit,
+                        geolocation_routing := omit,
+                        geolocation_error := omit,
+                        historyInfo := omit,
+                        info_Package := omit,
+                        inReplyTo := omit,
+                        join := omit,
+                        maxForwards := omit,
+                        mimeVersion := omit,
+                        minExpires := omit,
+                        min_SE := omit,
+                        organization := omit,
+                        p_access_network_info := omit,
+                        p_alerting_mode := omit,
+                        p_answer_state := omit,
+                        passertedID := omit,
+                        p_associated_uri := omit,
+                        p_called_party_id := omit,
+                        p_charging_function_address := omit,
+                        p_charging_vector := omit,
+                        p_DCS_trace_pty_id := omit,
+                        p_DCS_OSPS := omit,
+                        p_DCS_billing_info := omit,
+                        p_DCS_LAES := omit,
+                        p_DCS_redirect := omit,
+                        p_Early_Media := omit,
+                        p_media_auth := omit,
+                        ppreferredID := omit,
+                        p_profile_key := omit,
+                        p_served_user := omit,
+                        p_Service_Indication := omit,
+                        p_Service_Notification := omit,
+                        p_user_database := omit,
+                        p_visited_network_id := omit,
+                        path := omit,
+                        priv_answer_mode := omit,
+                        priority := omit,
+                        privacy := omit,
+                        proxyAuthenticate := omit,
+                        proxyAuthorization := omit,
+                        proxyRequire := omit,
+                        rack := omit,
+                        rseq := omit,
+                        reason := omit,
+                        recordRoute := omit,
+                        recv_Info := omit,
+                        reject_contact := omit,
+                        refer_sub := omit,
+                        refer_to := omit,
+                        referred_by := omit,
+                        replyTo := omit,
+                        replaces := omit,
+                        require := omit,
+                        request_disp := omit,
+                        resourcePriority := omit,
+                        retryAfter := omit,
+                        route := omit,
+                        security_client := omit,
+                        security_server := omit,
+                        security_verify := omit,
+                        session_expires := omit,
+                        session_id := omit,
+                        server := omit,
+                        service_route := omit,
+                        sip_ETag := omit,
+                        sip_If_Match := omit,
+                        subject := omit,
+                        subscription_state := omit,
+                        supported := omit,
+                        target_dialog := omit,
+                        timestamp := omit,
+                        toField := {
+                            fieldName := TO_E (99),
+                            addressField := {
+                                nameAddr := {
+                                    displayName := omit,
+                                    addrSpec := {
+                                        scheme := "sip",
+                                        userInfo := {
+                                            userOrTelephoneSubscriber := "10014002007",
+                                            password := omit
+                                        },
+                                        hostPort := {
+                                            host := "ericsson.se",
+                                            portField := omit
+                                        },
+                                        urlParameters := omit,
+                                        headers := omit
+                                    }
+                                }
+                            },
+                            toParams := omit
+                        },
+                        unsupported := omit,
+                        userAgent := omit,
+                        via := {
+                            fieldName := VIA_E (102),
+                            viaBody := {
+                                {
+                                    sentProtocol := {
+                                        protocolName := "SIP",
+                                        protocolVersion := "2.0",
+                                        transport := "TCP"
+                                    },
+                                    sentBy := {
+                                        host := "142.133.142.3",
+                                        portField := 5060
+                                    },
+                                    viaParams := {
+                                        {
+                                            id := "branch",
+                                            paramValue := "z9hG4bKf1f965ce3efd3a62494f8cec71bc2c0d199a"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        warning := omit,
+                        wwwAuthenticate := omit,
+                        undefinedHeader_List := omit,
+                        p_area_info := omit,
+                        p_any_name := omit,
+                        x_any_name := omit,
+                        x_generic_num := omit,
+                        x_mcr := omit,
+                        x_contract_addr := omit,
+                        x_echo_cancel := omit,
+                        x_fwdorig_num := omit,
+                        x_origcld_num := omit,
+                        ns := omit,
+                        imdn_disposition_notification := omit,
+                        imdn_message_id := omit,
+                        contribution_id := omit,
+                        conversation_id := omit,
+                        x_correlation_id := omit,
+                        p_preferred_service := omit,
+                        inReplyTo_contribution_id := omit,
+                        msa := omit,
+                        contribution_ids := omit,
+                        local_register := omit,
+                        focus_ids := omit,
+                        fservice := omit,
+                        teluri := omit,
+                        message_uid := omit,
+                        read_notification := omit,
+                        time_of_delivery := omit,
+                        message_expires := omit
+                    },
+                    messageBody := omit,
+                    payload := omit
+                }
+            }
+        }
+    }
+}
+2014/Oct/24 18:34:29.904175 856 TIMEROP BaseHttpClientComponent.ttcn:194(function:receiveAnyHTTPClientResponse) Stop timer timerWaitForHTTPResponse: 60 s
+2014/Oct/24 18:34:29.904229 856 USER httpNodeInterface.ttcn:351(function:processCommand) sending a response to MTC...

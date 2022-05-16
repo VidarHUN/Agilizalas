@@ -2,7 +2,6 @@ from dataclasses import dataclass, field
 from typing import List, Tuple, NoReturn
 
 
-# Goldschmidt falra mászna az OOP-tlanságtól, kijavíthatjuk majd
 @dataclass
 class Message:
     id: int
