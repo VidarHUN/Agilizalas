@@ -1,10 +1,13 @@
 import os
 import argparse
+from typing import NoReturn, List
+
+from logparser.message import Message
 from logparser.parser import Parser
 import time
 
 
-def generate_python(messages, filename):
+def generate_python(messages: List[Message], filename: str):
     obj_dict = {}
 
     with open('generated.py', 'w') as py:
@@ -70,13 +73,13 @@ def read_messages():
     return message_objects
 
 
-def run_txt(filename):
+def run_txt(filename: str) -> NoReturn:
     message = read_messages()
     generate_python(message, filename)
     os.system("python generated.py")
 
 
-def run_message(filename, message):
+def run_message(filename: str, message: List[Message]) -> NoReturn:
     generate_python(message, filename)
     os.system("python generated.py")
 

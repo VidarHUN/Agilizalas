@@ -21,3 +21,6 @@ jobs:
       - name: "Check pep8"
         run: |
           python -m pycodestyle --show-source --max-line-length=120 logparser tests app.py
+      - name: "Run test"
+        run: |
+          nose2
